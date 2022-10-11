@@ -10,8 +10,8 @@ fn index() -> &'static str {
 }
 
 #[get("/welcome")]
-fn welcome() ->&'static str {
-    "Welcome"
+fn welcome() -> String {
+    std::fs::read_to_string("tmpl.html").unwrap()
 }
 
 #[launch]

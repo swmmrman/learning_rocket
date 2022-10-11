@@ -18,7 +18,7 @@ fn welcome() -> String {
 #[get("/delay/<seconds>")]
 async fn delay(seconds: u64) -> String {
     sleep(Duration::from_secs(seconds)).await;
-    format!("Slept for {}", seconds)
+    format!("Slept for {} seconds.", seconds)
 }
 
 #[launch]

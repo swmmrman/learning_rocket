@@ -9,7 +9,13 @@ fn index() -> &'static str {
 </html>"
 }
 
+#[get("/welcome")]
+fn welcome() ->&'static str {
+    "Welcome"
+}
+
 #[launch]
 fn rocket( ) -> _ {
-    rocket::build().mount("/", routes![index])
+    rocket::build().mount("/", routes![index]);
+    rocket::build().mount("/welcome", routes![welcome])
 }

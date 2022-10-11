@@ -16,7 +16,10 @@ fn welcome() -> String {
 }
 
 #[get("/delay/<seconds>")]
-async fn delay(seconds: u64) -> String {
+async fn delay(mut seconds: u64) -> String {
+    if seconds > 30 {
+        seconds = 30;
+    }
     sleep(Duration::from_secs(seconds)).await;
     format!("Slept for {} seconds.", seconds)
 }

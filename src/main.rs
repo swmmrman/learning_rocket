@@ -27,6 +27,12 @@ async fn delay(mut seconds: u64) -> content::RawHtml<String> {
     sleep(Duration::from_secs(seconds)).await;
     content::RawHtml(format!("Slept for {} seconds.", seconds))
 }
+#[get("/css/<css_file>")]
+fn css(css_file: String) -> content::RawCss<String>{
+    content::RawCss(
+        std::fs::read_to_string(format!("css/{}", css_file)).unwrap()
+    )
+}
 
 #[launch]
 fn rocket( ) -> _ {
@@ -34,4 +40,5 @@ fn rocket( ) -> _ {
         .mount("/", routes![index])
         .mount("/", routes![welcome])
         .mount("/", routes![delay])
+        .mount("/", routes![css])
 }

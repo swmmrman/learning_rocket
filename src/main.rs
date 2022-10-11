@@ -18,5 +18,5 @@ fn welcome() ->&'static str {
 fn rocket( ) -> _ {
     rocket::build()
         .mount("/", routes![index])
-        .mount("/welcome", routes![welcome])
+        .mount("/", routes![welcome])
 }

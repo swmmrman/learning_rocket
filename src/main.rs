@@ -1,5 +1,7 @@
 use rocket::tokio::time::{sleep, Duration};
 use rocket::response::content;
+use rocket::fs::NamedFile;
+
 #[macro_use] extern crate rocket;
 
 #[get("/")]
@@ -28,10 +30,8 @@ async fn delay(mut seconds: u64) -> content::RawHtml<String> {
     content::RawHtml(format!("Slept for {} seconds.", seconds))
 }
 #[get("/css/<css_file>")]
-fn css(css_file: String) -> content::RawCss<String>{
-    content::RawCss(
-        std::fs::read_to_string(format!("css/{}", css_file)).unwrap()
-    )
+async fn css(css_file: String) -> Option<NamedFile>{
+    NamedFile::open(format!("css/{}", css_file)).await.ok()
 }
 
 #[get("/js/<js_file>")]

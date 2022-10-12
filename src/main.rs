@@ -15,10 +15,8 @@ r#"<html>
 }
 
 #[get("/welcome")]
-fn welcome() -> content::RawHtml<String> {
-    content::RawHtml(
-    std::fs::read_to_string("tmpl.html").unwrap()
-    )
+async fn welcome() -> Option<NamedFile> {
+    NamedFile::open("tmpl.html").await.ok()
 }
 
 #[get("/delay/<seconds>")]

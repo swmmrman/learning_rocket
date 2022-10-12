@@ -34,6 +34,13 @@ fn css(css_file: String) -> content::RawCss<String>{
     )
 }
 
+#[get("/js/<js_file>")]
+fn js(js_file: String) -> content::RawJavaScript<String>{
+    content::RawJavaScript(
+        std::fs::read_to_string(format!("js/{}", js_file)).unwrap()
+    )
+}
+
 #[launch]
 fn rocket( ) -> _ {
     rocket::build()
@@ -41,4 +48,5 @@ fn rocket( ) -> _ {
         .mount("/", routes![welcome])
         .mount("/", routes![delay])
         .mount("/", routes![css])
+        .mount("/", routes![js])
 }

@@ -35,10 +35,8 @@ async fn css(css_file: String) -> Option<NamedFile>{
 }
 
 #[get("/js/<js_file>")]
-fn js(js_file: String) -> content::RawJavaScript<String>{
-    content::RawJavaScript(
-        std::fs::read_to_string(format!("js/{}", js_file)).unwrap()
-    )
+async fn js(js_file: String) -> Option<NamedFile> {
+    NamedFile::open(format!("js/{}", js_file)).await.ok()
 }
 
 #[launch]
